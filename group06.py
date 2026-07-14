@@ -46,7 +46,7 @@ HIGHSCORE_FILE = "highscore.txt"
 class ScoreDisplay:
     def __init__(self):
         self.font=pygame.font.Font(None,50)
-        self.color=(0, 0, 255)
+        self.color=(255, 255 , 255)
         self.rect_center=(100,SCREEN_HEIGHT-50)
 
     def update(self,screen:pygame.Surface,current_score:int):
@@ -403,16 +403,16 @@ def main():
         elif game_state == "PLAY":
             screen.blit(play_bg,(0,0))
 
-            #タイトル画面を（ドット風、中央揃え）
-            title_text = large_font.render("FALLING CATCH GAME", True, ORANGE)  
-            start_text = font.render("Press SPACE to Start", True, WHITE)  
+        #     #タイトル画面を（ドット風、中央揃え）
+        #     title_text = large_font.render("FALLING CATCH GAME", True, ORANGE)  
+        #     start_text = font.render("Press SPACE to Start", True, WHITE)  
 
-            title_rect=title_text.get_rect(center=(SCREEN_WIDTH//2,200))   #スタートタイトルの位置設定（画面中央ｘ＝400、y＝200）
-            start_rect=start_text.get_rect(center=(SCREEN_WIDTH//2,400)) #スタート文字の位置設定（画面中央X＝400、ｙ＝400)
+        #     title_rect=title_text.get_rect(center=(SCREEN_WIDTH//2,200))   #スタートタイトルの位置設定（画面中央ｘ＝400、y＝200）
+        #     start_rect=start_text.get_rect(center=(SCREEN_WIDTH//2,400)) #スタート文字の位置設定（画面中央X＝400、ｙ＝400)
            
-           # 画面に描画
-            screen.blit(title_text, title_rect)
-            screen.blit(start_text, start_rect)
+        #    # 画面に描画
+        #     screen.blit(title_text, title_rect)
+        #     screen.blit(start_text, start_rect)
 
         # elif game_state == "PLAY":
             screen.blit(player_img, player_rect) 
@@ -431,9 +431,23 @@ def main():
 
         elif game_state == "GAMEOVER":
             # ［G君の合流ポイント③: リザルト画面の描画（A君の画面を乗っ取る）］
-            over_text = font.render("TIME OVER",True,RED)
+    # プレイ画面と同じ背景
+     
+            over_text = font.render("TIME OVER", True, RED)
             over_rect = over_text.get_rect(center=(SCREEN_WIDTH // 2, 150))
             screen.blit(over_text, over_rect)
+
+            score_text = small_font.render(f"YOUR SCORE: {current_score}", True, WHITE)
+            highscore_text = small_font.render(f"HI-SCORE: {high_score}", True, YELLOW)
+
+            score_rect = score_text.get_rect(center=(SCREEN_WIDTH // 2, 270))
+            highscore_rect = highscore_text.get_rect(center=(SCREEN_WIDTH // 2, 340))
+
+            screen.blit(score_text, score_rect)
+            screen.blit(highscore_text, highscore_rect)
+
+            # retry_text = small_font.render("Press SPACE to Title", True, WHITE)
+            # screen.blit(retry_text, (260, 450))
             # G君が作成した文字配置や、F君が作ったリザルト背景などをここで描画する
             
             # スコアとハイスコアの表示（G君の担当箇所）
@@ -445,8 +459,8 @@ def main():
             screen.blit(highscore_text, highscore_rect)
             
             
-            retry_text = small_font.render("Press SPACE to Title", True, WHITE)
-            screen.blit(retry_text, (260, 450))
+        # retry_text = small_font.render("Press SPACE to Title", True, WHITE)
+        # screen.blit(retry_text, (260, 450))
 
         # 画面の更新
         pygame.display.flip()
